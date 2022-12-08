@@ -1,68 +1,79 @@
-import React from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import { MovieCard } from "../movie-card/movie-card";
+import { MovieView } from "../movie-view/movie-view";
+import { LoginView } from "../login-view/login-view";
+import { SignupView } from "../signup-view/signup-view";
 
-import { RegistrationView } from '../registration-view/registration-view';
-import { LoginView } from '../login-view/login-view';
-import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
+export const MainView = () => {
+  const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token");
+  
+  useEffect(() => {
+    if (!token) {
+      return;
+    }
 
-class MainView extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      movies: [],
-      selectedMovie: null,
-      user: null
-    };
-  }
-
-  componentDidMount(){
-    axios.get('https://justin-myflixdb.herokuapp.com/movies')
-      .then(response => {
-        this.setState({
-          movies: response.data
+    fetch("https://justin-myflixdb.herokuapp.com/movies", {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        const moviesFromApi = data.map((movie) => {
+          return {
+            id: movie._id,
+            title: movie.Title,
+            director: movie.Director.Name,
+            image: movie.ImagePath
+          };
         });
-      })
-      .catch(error => {
-        console.log(error);
+        
+        setMovies(moviesFromApi);
       });
-  }  
+  }, [token]);
 
-/*When a movie is clicked, this function is invoked and updates the state of the `selectedMovie` *property to that movie*/
-  setSelectedMovie(newSelectedMovie) {
-    this.setState({
-      selectedMovie: newSelectedMovie
-    });
-  }
-
-/* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
-  onLoggedIn(user) {
-    this.setState({
-      user
-    });
-  }
-
-  render() {
-    const { movies, selectedMovie, user } = this.state;
-
-    /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-    
-    // Before the movies have been loaded
-    if (movies.length === 0) return <div className="main-view" />;
-      
+  if (!user) {
     return (
-      <div className="main-view">
-        {/*If the state of `selectedMovie` is not null, that selected movie will be returned otherwise, all *movies will be returned*/}
-        {selectedMovie
-          ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
-          : movies.map(movie => (
-            <MovieCard key={movie._id} movie={movie} onMovieClick={(newSelectedMovie) => { this.setSelectedMovie(newSelectedMovie) }}/>
-         ))
-        }
-      </div>
-    );    
-  }
-}
+      <>
+        <LoginView
+          onLoggedIn={(user, token) => {
+            setUser(user);
+            setToken(token);
+          }}/>
+        or
+        <SignupView />
+      </>    
+    );
+  };
 
-export default MainView;
+  if (selectedMovie) {
+    return (
+      <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+    );
+  }
+
+  if (movies.length === 0) {
+    return <div>The list is empty!</div>;
+  }
+
+  return (
+    <div>
+      {movies.map((movie) => (
+        <MovieCard
+          key={movie.id}
+          movie={movie}
+          onMovieClick={(newSelectedMovie) => {
+            setSelectedMovie(newSelectedMovie);
+          }}
+        />
+      ))}
+      <div>
+        <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
+      </div>
+    </div>
+  );
+};
