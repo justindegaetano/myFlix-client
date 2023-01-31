@@ -27,6 +27,7 @@ export const ProfileView = ({ movies }) => {
         if (user) {
           setUser(user);
           localStorage.setItem("user", JSON.stringify(user));
+          window.location.reload;
         }
       });
   };
@@ -50,7 +51,7 @@ export const ProfileView = ({ movies }) => {
     }).then((response) => {
       if (response.ok) {
         alert("Changes saved");
-        updateUser(user.username).then(() => window.location.reload());
+        updateUser(user.username);
       } else {
         alert("Something went wrong");
       }
