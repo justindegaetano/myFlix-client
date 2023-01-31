@@ -15,7 +15,7 @@ export const ProfileView = ({ movies }) => {
 
   let favoriteMovies = movies.filter(
     (m) =>
-      user.FavoriteMovies && user.FavoriteMovies.indexOf(m._id) >= 0
+      user.FavoriteMovies && user.FavoriteMovies.indexOf(m.id) >= 0
   );
 
   const updateUser = (username) => {

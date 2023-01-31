@@ -46228,7 +46228,7 @@ const ProfileView = ({ movies  })=>{
     const [username, setUsername] = (0, _react.useState)(user.Username);
     const [password, setPassword] = (0, _react.useState)();
     const [email, setEmail] = (0, _react.useState)(user.Email);
-    let favoriteMovies = movies.filter((m)=>user.FavoriteMovies && user.FavoriteMovies.indexOf(m._id) >= 0);
+    let favoriteMovies = movies.filter((m)=>user.FavoriteMovies && user.FavoriteMovies.indexOf(m.id) >= 0);
     const updateUser = (username)=>{
         fetch("https://justin-myflixdb.herokuapp.com/users/" + username, {
             headers: {
