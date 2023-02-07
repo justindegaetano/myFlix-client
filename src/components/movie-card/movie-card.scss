@@ -1,0 +1,22 @@
+.card-image {
+  margin-top: 15px;
+  height: 250px;
+  width: 100%;
+  object-fit: contain;
+}
+  
+.card-title,
+.card-text {
+  color: whitesmoke;
+}
+  
+.movie-card {
+  background-color: #353344 !important;
+  box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.4);
+  transition: all 0.6s ease-in-out;
+}
+  
+.movie-card:hover {
+  transition: all 0.6s ease-in-out;
+  border: 1px solid #a2ced3;
+}

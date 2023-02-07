@@ -1,9 +1,10 @@
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { Navbar, Container, Nav, Form, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import "./navigation-bar.scss";
 
-export const NavigationBar = ({ user, onLoggedOut }) => {
+export const NavigationBar = ({ user, onLoggedOut, handleSearchInput, handleFilterSelection }) => {
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar className="mt-1 mb-4" bg="light" expand="lg">
       <Container>
         <Navbar.Brand as={Link} to="/">
           myFlix
@@ -35,6 +36,26 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
               </>
             )}
           </Nav>
+          {user && (
+            <Form inline className="d-flex">
+              <FormControl
+                type="text"
+                placeholder="Search"
+                className="mr-sm-2 mx-2 field-border"
+                onChange={handleSearchInput}
+              />
+              {/* Dropdown for filter selection*/}
+              <FormControl
+                as="select"
+                onChange={handleFilterSelection}
+                className="field-border"
+              >
+                <option value="title">Title</option>
+                <option value="genre">Genre</option>
+                <option value="director">Director</option>
+              </FormControl>
+            </Form>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

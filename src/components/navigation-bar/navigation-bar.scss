@@ -1,0 +1,18 @@
+.navbar {
+    background-color: #353344 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .navbar a {
+    color: #a2ced3;
+  }
+  
+  .navbar a:visited {
+    color: #a2ced3;
+  }
+  
+  .field-border:focus {
+    border-color: #a2ced3;
+    box-shadow: 0 0 0 0.1rem #a2ced3;
+  }

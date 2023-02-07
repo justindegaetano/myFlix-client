@@ -7,11 +7,9 @@ export const ProfileView = ({ movies }) => {
   const storedToken = localStorage.getItem("token");
   const [user, setUser] = useState(storedUser? storedUser : null);
   const [token, setToken] = useState(storedToken? storedToken : null);
-
   const [username, setUsername] = useState(user.Username);
   const [password, setPassword] = useState();
   const [email, setEmail] = useState(user.Email);
-
 
   let favoriteMovies = movies.filter(
     (m) =>
@@ -79,11 +77,12 @@ export const ProfileView = ({ movies }) => {
   return (
     <Row>
       <Col>
-        <Form onSubmit={handleSubmit}>
+        <Form className="profile-update" onSubmit={handleSubmit}>
           <h2>Update info</h2>
           <Form.Group>
             <Form.Label>Username: </Form.Label>
             <Form.Control
+              className="mx-2 field-border"
               type="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -92,6 +91,7 @@ export const ProfileView = ({ movies }) => {
           <Form.Group>
             <Form.Label>Password: </Form.Label>
             <Form.Control
+              className="mx-2 field-border"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -100,12 +100,13 @@ export const ProfileView = ({ movies }) => {
           <Form.Group>
             <Form.Label>Email: </Form.Label>
             <Form.Control
+              className="mx-2 field-border"
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Group>
-          <Button type="submit" className="button-primary">
+          <Button type="submit" className="button-primary m-3">
             Save Changes
           </Button>
           <Button
@@ -119,22 +120,23 @@ export const ProfileView = ({ movies }) => {
         </Form>
       </Col>
       <Col>
-        <div className="profile-info">
-          <div className="user-info">
-            <span className="label">Username: </span>
+        <div>
+          <div className="mt-4">
+            <strong className="label">Username: </strong>
             <span className="value">{user.Username}</span>
           </div>
-          <div className="user-info">
-            <span className="label">Email: </span>
+          <div className="mt-2">
+            <strong className="label">Email: </strong>
             <span className="value">{user.Email}</span>
           </div>
-          <div className="user-info">
-            <span className="label">Birthday: </span>
+          <div className="mt-2">
+            <strong className="label">Birthday: </strong>
             <span className="value">{user.Birthday}</span>
           </div>
         </div>
       </Col>
-      <Row>
+      <Row className="my-4">
+        <h2 className="mb-3">Favorite Movies</h2>
         {favoriteMovies.length > 0 &&
           favoriteMovies.map((movie) => (
             <Col className="mb-5" key={movie.id} sm={5} md={3}>

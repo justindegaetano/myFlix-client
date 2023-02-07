@@ -57,21 +57,29 @@ export const MovieView = ({ movies }) => {
   };
  
     return (
-      <Row className="movie-view">
-        <Col md={6} className="movie-poster">
-          <img className="movie-img" crossOrigin="anonymous" src={movie.image} />
+      <Row>
+        <Col md={6}>
+          <img className="movie-img img-fluid d-block mx-auto" 
+          crossOrigin="anonymous" 
+          src={movie.image} />
         </Col>
         <Col md={6}>
-          <div className="movie-title">
-            <span className="value">{movie.title}</span>
+          <div className="my-3">
+            <span>
+              <strong>{movie.title}</strong>
+            </span>
           </div>
-          <div className="movie-director">
-            <span className="label">Director: </span>
-            <span className="value">{movie.director}</span>
+          <div>
+            <strong>Director: </strong>
+            <span>{movie.director}</span>
           </div>
-          <div className="movie-description">
-            <span className="label">Description: </span>
-            <span className="value">{movie.description}</span>
+          <div>
+            <strong>Genre: </strong>
+            <span>{movie.genre}</span>
+          </div>
+          <div>
+            <strong>Description: </strong>
+            <span>{movie.description}</span>
           </div>
 
           {
@@ -92,7 +100,7 @@ export const MovieView = ({ movies }) => {
           }
           
           <Link to={`/`}>
-            <Button className="back-button button-primary">Back</Button>
+            <Button className="back-button m-2">Back</Button>
           </Link>
         </Col>
       </Row>
