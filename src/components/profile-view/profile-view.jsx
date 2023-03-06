@@ -25,7 +25,7 @@ export const ProfileView = ({ movies }) => {
         if (user) {
           setUser(user);
           localStorage.setItem("user", JSON.stringify(user));
-          window.location.reload;
+          window.location.reload();
         }
       });
   };
@@ -46,10 +46,14 @@ export const ProfileView = ({ movies }) => {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-    }).then((response) => {
-      if (response.ok) {
+    })
+    .then((response) => response.json())
+    .then((updatedUser) => {
+      if (updatedUser) {
         alert("Changes saved");
-        updateUser(user.username);
+        setUser(updatedUser);
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+        window.location.reload();
       } else {
         alert("Something went wrong");
       }
