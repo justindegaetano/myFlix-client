@@ -16,20 +16,6 @@ export const ProfileView = ({ movies }) => {
       user.FavoriteMovies && user.FavoriteMovies.indexOf(m.id) >= 0
   );
 
-  const updateUser = (username) => {
-    fetch("https://justin-myflixdb.herokuapp.com/users/" + username, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((response) => response.json())
-      .then((user) => {
-        if (user) {
-          setUser(user);
-          localStorage.setItem("user", JSON.stringify(user));
-          window.location.reload();
-        }
-      });
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
