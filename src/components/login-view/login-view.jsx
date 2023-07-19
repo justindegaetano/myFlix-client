@@ -16,7 +16,7 @@ export const LoginView = ({ onLoggedIn }) => {
       Password: password
     };
 
-    fetch("https://justin-myflixdb.herokuapp.com/login", {
+    fetch("https://myflix-webapi.onrender.com/login", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {

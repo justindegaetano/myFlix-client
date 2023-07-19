@@ -20,7 +20,7 @@ export const MovieView = ({ movies }) => {
   }
 
   const handleFavorite = () => {
-    fetch("https://justin-myflixdb.herokuapp.com/users/"+user.Username+"/movies/"+movie.id, {
+    fetch("https://myflix-webapi.onrender.com/users/"+user.Username+"/movies/"+movie.id, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -36,7 +36,7 @@ export const MovieView = ({ movies }) => {
   };
 
   const handleRemoveFavorite = () => {
-    fetch("https://justin-myflixdb.herokuapp.com/users/"+user.Username+"/movies/"+movie.id, {
+    fetch("https://myflix-webapi.onrender.com/users/"+user.Username+"/movies/"+movie.id, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

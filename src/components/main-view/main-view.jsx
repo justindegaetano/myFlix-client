@@ -23,7 +23,7 @@ export const MainView = () => {
     if (!token) return;
 
     // API fetch for all movie data
-    fetch("https://justin-myflixdb.herokuapp.com/movies", {
+    fetch("https://myflix-webapi.onrender.com/movies", {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((response) => response.json())
